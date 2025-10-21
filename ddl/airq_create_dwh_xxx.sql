@@ -55,23 +55,38 @@ CREATE TABLE dim_technician_role_scd2 (
 
 -- .......
 
--- FACT 1: linked to TimeDay + Parameter + ServiceType
-CREATE TABLE ft_name1 (
+-- FACT 1: environmental monitoring and sensor data
+CREATE TABLE ft_SensorData (
     id INT NOT NULL PRIMARY KEY                  -- keep a simple surrogate PK for the fact
     , day_id INT NOT NULL                        -- -> dim_timeday.id
-    , sk_parameter BIGINT NOT NULL               -- -> dim_parameter.sk_parameter
-    , sk_servicetype BIGINT NOT NULL             -- -> dim_servicetype.sk_servicetype
+    , sk_parameter BIGINT NOT NULL
+    , sk_device BIGINT NOT NULL               
+    , sk_sensortype  BIGINT NOT NULL
+    , sk_alert       BIGINT NULL
+    
+
     -- (optional) add your measures here, e.g.: measure_value NUMERIC(18,2) NOT NULL,
+    measure_value NUMERIC(18,2) NOT NULL
+    , data_quality INT NOT NULL CHECK (data_quality BETWEEN 1 AND 5)
+    , alter_flag BOOLEAN NOT NULL DEFAULT FALSE
+    , alert_level INT NULL CHECK (alert_level BETWEEN 1 AND 4)
+    , weather_tempavgday NUMERIC(5,2) NULL
+
     , etl_load_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-    , CONSTRAINT fk_name1_timeday FOREIGN KEY (day_id) REFERENCES dim_timeday(id)
-    , CONSTRAINT fk_name1_parameter FOREIGN KEY (sk_parameter) REFERENCES dim_parameter(sk_parameter)
-    , CONSTRAINT fk_name1_servicetype FOREIGN KEY (sk_servicetype) REFERENCES dim_servicetype(sk_servicetype)
+    , CONSTRAINT fk_SensorData_timeday FOREIGN KEY (day_id) REFERENCES dim_timeday(id)
+    , CONSTRAINT fk_SensorData_parameter FOREIGN KEY (sk_parameter) REFERENCES dim_parameter(sk_parameter)
+    , CONSTRAINT fk_SensorData_servicetype FOREIGN KEY (sk_servicetype) REFERENCES dim_servicetype(sk_servicetype)
+    , CONSTRAINT fk_SensorData_device FOREIGN KEY (sk_device) REFERENCES dim_device(sk_device)
+    , CONSTRAINT fk_SensorData_sensortype FOREIGN KEY (sk_sensortype) REFERENCES dim_sensortype(sk_sensortype)
+    , CONSTRAINT fk_SensorData_alert FOREIGN KEY (sk_alert) REFERENCES dim_alert(sk_alert)
 );
 
 -- helpful indexes for join performance (optional but recommended)
-CREATE INDEX ix_ft_name1_day           ON ft_name1(day_id);
-CREATE INDEX ix_ft_name1_parameter     ON ft_name1(sk_parameter);
-CREATE INDEX ix_ft_name1_servicetype   ON ft_name1(sk_servicetype);
+CREATE INDEX ix_ft_SensorData_day           ON ft_SensorData(day_id);
+CREATE INDEX ix_ft_SensorData_parameter     ON ft_SensorData(sk_parameter);
+CREATE INDEX ix_ft_SensorData_device   ON ft_SensorData(sk_device);
+CREATE INDEX ix_ft_SensorData_sensortype    ON ft_SensorData(sk_sensortype);
+CREATE INDEX ix_ft_SensorData_readingmode   ON ft_SensorData(sk_readingmode);
 
 -- FACT 2: linked to TimeDay + Parameter + Technician Role (SCD2)
 CREATE TABLE ft_name2 (
