@@ -9,15 +9,28 @@ SET search_path TO dwh_xxx, stg_xxx;
 TRUNCATE TABLE dim_timeday RESTART IDENTITY CASCADE;
 
 -- Step 2: Insert data into the dim_timeday
-INSERT INTO dim_timeday (id)
--- place time dimension creating mechanism here
-VALUES 
-(1)
-, (2)
-, (3)
-, (4)
-, (5)
+-- we see in the data that all our dates are between 01.01.2023 and 31.12.2024 
+WITH series AS (
+    SELECT
+        generate_series(
+            '2023-01-01'::DATE, 
+            '2024-12-31'::DATE,
+            INTERVAL '1 day'
+        ) AS date
+)
 
-
-
+INSERT INTO dim_timeday (id, date_value, year, month, monthname, day, dayname, etl_load_timestamp)
+SELECT
+    EXTRACT(YEAR FROM date) * 10000 + 
+    EXTRACT(MONTH FROM date) * 100 + 
+    EXTRACT(DAY FROM date) AS id
+    , date AS date_value
+    , EXTRACT(YEAR FROM date)::INT AS year
+    , EXTRACT(MONTH FROM date)::INT AS month
+    , TO_CHAR(date, 'Month') AS monthname
+    , EXTRACT(DAY FROM date)::INT AS day
+    , TO_CHAR(date, 'Day') AS dayname
+    , CURRENT_TIMESTAMP AS etl_load_timestamp
+FROM series
+ORDER BY date;
 

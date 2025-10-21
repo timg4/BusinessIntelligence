@@ -17,9 +17,14 @@ DROP TABLE IF EXISTS ft_name2;
 -- Please make sure the order in which individual statements are executed respects the FOREIGN KEY constraints
 -- -------------------------------
 CREATE TABLE dim_timeday (
-    id INT NOT NULL PRIMARY KEY
-    -- , ...
-	, etl_load_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    id INT PRIMARY KEY
+    , date_value DATE NOT NULL
+    , year INT NOT NULL
+    , month INT NOT NULL
+    , monthname VARCHAR(20) NOT NULL
+    , day INT NOT NULL
+    , dayname VARCHAR(20) NOT NULL
+    , etl_load_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE dim_servicetype (
@@ -53,6 +58,60 @@ CREATE TABLE dim_technician_role_scd2 (
   , CONSTRAINT ux_techrole_bk_timerange UNIQUE (badgenumber, effective_from, effective_to)
 );
 
+
+-- manually added dimensions
+CREATE TABLE dim_sensortype(
+  sk_sensortype BIGSERIAL PRIMARY KEY
+  , tb_sensortype_id INT NOT NULL
+  , typename VARCHAR(200) NOT NULL
+  , manufacturer VARCHAR(200) NOT NULL
+  , technology VARCHAR(200) NOT NULL
+  , etl_load_timestamp TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
+  , CONSTRAINT uq_dim_sensortype_bk UNIQUE (tb_sensortype_id)
+);
+
+CREATE TABLE dim_device(
+    sk_device BIGSERIAL PRIMARY KEY
+    , tb_sensordevice_id INT NOT NULL
+    , locationname VARCHAR(200) NOT NULL
+    , locationtype VARCHAR(200) NOT NULL
+    , altitude DATE NOT NULL
+    , cityname VARCHAR(200) NOT NULL
+    , countryname VARCHAR(200) NOT NULL
+    , population_city INT NOT NULL
+    , population_country INT NOT NULL
+    , latitude DECIMAL (9,6) NOT NULL
+    , longitude DECIMAL (9,6) NOT NULL
+    , etl_load_timestamp TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
+    , CONSTRAINT uq_dim_device_bk UNIQUE (tb_device_id)
+  ); 
+
+  
+CREATE TABLE dim_readingmode (
+    sk_readingmode BIGSERIAL PRIMARY KEY,
+    tb_readingmode_id INT NOT NULL,        
+    modename VARCHAR(255) NOT NULL,
+    latency INT NOT NULL,
+    details VARCHAR(255) NOT NULL,
+    valid_from DATE NOT NULL,
+    valid_to DATE NOT NULL,
+    is_current BOOLEAN NOT NULL,
+    etl_load_timestamp TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT uq_dim_readingmode_timerange UNIQUE (tb_readingmode_id, valid_from, valid_to)
+);
+
+CREATE TABLE dim_alert (
+    sk_alert BIGSERIAL PRIMARY KEY,
+    tb_alert_id INT NOT NULL,
+    alertname VARCHAR(255) NOT NULL,    
+    colour VARCHAR(255) NOT NULL,        
+    details VARCHAR(255) NOT NULL,
+    severity_level INT NOT NULL,       
+    etl_load_timestamp TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT uq_dim_alert_bk UNIQUE (tb_alert_id)
+);
+
+
 -- .......
 
 -- FACT 1: environmental monitoring and sensor data
@@ -63,6 +122,7 @@ CREATE TABLE ft_SensorData (
     , sk_device BIGINT NOT NULL               
     , sk_sensortype  BIGINT NOT NULL
     , sk_alert       BIGINT NULL
+    , sk_readingmode BIGINT NOT NULL
     
 
     -- (optional) add your measures here, e.g.: measure_value NUMERIC(18,2) NOT NULL,
@@ -79,6 +139,7 @@ CREATE TABLE ft_SensorData (
     , CONSTRAINT fk_SensorData_device FOREIGN KEY (sk_device) REFERENCES dim_device(sk_device)
     , CONSTRAINT fk_SensorData_sensortype FOREIGN KEY (sk_sensortype) REFERENCES dim_sensortype(sk_sensortype)
     , CONSTRAINT fk_SensorData_alert FOREIGN KEY (sk_alert) REFERENCES dim_alert(sk_alert)
+    , CONSTRAINT fk_SensorData_readingmode FOREIGN KEY (sk_readingmode) REFERENCES dim_readingmode(sk_readingmode
 );
 
 -- helpful indexes for join performance (optional but recommended)
