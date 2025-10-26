@@ -139,7 +139,7 @@ CREATE TABLE ft_SensorData (
     , CONSTRAINT fk_SensorData_device FOREIGN KEY (sk_device) REFERENCES dim_device(sk_device)
     , CONSTRAINT fk_SensorData_sensortype FOREIGN KEY (sk_sensortype) REFERENCES dim_sensortype(sk_sensortype)
     , CONSTRAINT fk_SensorData_alert FOREIGN KEY (sk_alert) REFERENCES dim_alert(sk_alert)
-    , CONSTRAINT fk_SensorData_readingmode FOREIGN KEY (sk_readingmode) REFERENCES dim_readingmode(sk_readingmode
+    , CONSTRAINT fk_SensorData_readingmode FOREIGN KEY (sk_readingmode) REFERENCES dim_readingmode(sk_readingmode)
 );
 
 -- helpful indexes for join performance (optional but recommended)
