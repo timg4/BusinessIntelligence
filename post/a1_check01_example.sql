@@ -1,12 +1,12 @@
 -- Make A1 dwh_xxx schema the default for this session
-SET search_path TO dwh_xxx, stg_xxx;
+SET search_path TO dwh_061, stg_061;
 
 -- =======================================
 -- Check [what are you checking]
 -- =======================================
 WITH dwh_st AS 
 (
-  SELECT 'xxx' as group_num
+  SELECT '061' as group_num
   	, COUNT(sk_servicetype) as dwh_count
   FROM dim_servicetype
 ),

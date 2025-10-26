@@ -1,6 +1,5 @@
 -- Make A1 dwh_xxx, stg_xxx schemas the default for this session
-SET search_path TO dwh_xxx, stg_xxx;
-
+SET search_path TO dwh_061, stg_061;
 -- =======================================
 -- Load [table name]
 -- =======================================
