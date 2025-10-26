@@ -1,7 +1,7 @@
 -- please remember to give a meaningful name to both Table X (instead of tb_x) and TableY (instead of tb_y)
 
 -- Make the A1's stg_xxx schema the default for this session
-SET search_path TO stg_061;
+SET search_path TO dwh_061, stg_061;
 
 -- -------------------------------
 -- 2) DROP TABLE before attempting to create OLTP snapshot tables
@@ -13,9 +13,9 @@ DROP TABLE IF EXISTS tb_x;
 
 -- we add a emissionsource table here that shows us where the emissions come from
 CREATE TABLE tb_emissionsource (
-    id INT NOT NULL PRIMARY KEY,
-    sourcetype VARCHAR(100) NOT NULL,
-    description VARCHAR(255)
+    id INT NOT NULL PRIMARY KEY
+    , sourcetype VARCHAR(100) NOT NULL
+    , description VARCHAR(255)
 );
 
 -- give a meaningful name and create Table Y
