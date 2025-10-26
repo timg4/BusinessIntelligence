@@ -1,7 +1,7 @@
 id;sourcetype;description
-1;Industrial;Factories and production
-2;Residential;Home activities (heating, cooking…)
-3;Natural;Wildfires
-4;Traffic;Vehicle emissions
-5;Energy Production;Power plants
-6;Agriculture;Livestock, fertilizer
+1001;Industrial;Factories and production
+1002;Residential;Home activities (heating, cooking)
+1003;Natural;Wildfires
+1004;Traffic;Vehicle emissions
+1005;Energy Production;Power plants
+1006;Agriculture;Livestock, fertilizer
