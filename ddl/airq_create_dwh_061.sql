@@ -70,12 +70,13 @@ CREATE TABLE dim_sensortype(
   , CONSTRAINT uq_dim_sensortype_bk UNIQUE (tb_sensortype_id)
 );
 
+
 CREATE TABLE dim_device(
     sk_device BIGSERIAL PRIMARY KEY
     , tb_sensordevice_id INT NOT NULL
     , locationname VARCHAR(200) NOT NULL
     , locationtype VARCHAR(200) NOT NULL
-    , altitude DATE NOT NULL
+    , altitude INT NOT NULL
     , cityname VARCHAR(200) NOT NULL
     , countryname VARCHAR(200) NOT NULL
     , population_city INT NOT NULL
@@ -83,10 +84,9 @@ CREATE TABLE dim_device(
     , latitude DECIMAL (9,6) NOT NULL
     , longitude DECIMAL (9,6) NOT NULL
     , etl_load_timestamp TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    , CONSTRAINT uq_dim_device_bk UNIQUE (tb_device_id)
+    , CONSTRAINT uq_dim_device_bk UNIQUE (tb_sensordevice_id)
   ); 
 
-  
 CREATE TABLE dim_readingmode (
     sk_readingmode BIGSERIAL PRIMARY KEY,
     tb_readingmode_id INT NOT NULL,        
@@ -126,7 +126,7 @@ CREATE TABLE ft_SensorData (
     
 
     -- (optional) add your measures here, e.g.: measure_value NUMERIC(18,2) NOT NULL,
-    measure_value NUMERIC(18,2) NOT NULL
+    , measure_value NUMERIC(18,2) NOT NULL
     , data_quality INT NOT NULL CHECK (data_quality BETWEEN 1 AND 5)
     , alter_flag BOOLEAN NOT NULL DEFAULT FALSE
     , alert_level INT NULL CHECK (alert_level BETWEEN 1 AND 4)
@@ -135,7 +135,6 @@ CREATE TABLE ft_SensorData (
     , etl_load_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     , CONSTRAINT fk_SensorData_timeday FOREIGN KEY (day_id) REFERENCES dim_timeday(id)
     , CONSTRAINT fk_SensorData_parameter FOREIGN KEY (sk_parameter) REFERENCES dim_parameter(sk_parameter)
-    , CONSTRAINT fk_SensorData_servicetype FOREIGN KEY (sk_servicetype) REFERENCES dim_servicetype(sk_servicetype)
     , CONSTRAINT fk_SensorData_device FOREIGN KEY (sk_device) REFERENCES dim_device(sk_device)
     , CONSTRAINT fk_SensorData_sensortype FOREIGN KEY (sk_sensortype) REFERENCES dim_sensortype(sk_sensortype)
     , CONSTRAINT fk_SensorData_alert FOREIGN KEY (sk_alert) REFERENCES dim_alert(sk_alert)

@@ -6,7 +6,7 @@ SET search_path TO dwh_061, stg_061;
 -- =======================================
 
 -- 1) Truncate target
-TRUNCATE TABLE ft_name1 RESTART IDENTITY CASCADE;
+TRUNCATE TABLE dim_alert RESTART IDENTITY CASCADE;
 
 INSERT INTO dim_alert (
     tb_alert_id,

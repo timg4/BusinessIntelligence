@@ -6,7 +6,7 @@ SET search_path TO dwh_061, stg_061;
 -- =======================================
 
 -- 1) Truncate target
-TRUNCATE TABLE ft_name1 RESTART IDENTITY CASCADE;
+TRUNCATE TABLE dim_device RESTART IDENTITY CASCADE;
 
 INSERT INTO dim_device(
     tb_sensordevice_id,
@@ -22,17 +22,17 @@ INSERT INTO dim_device(
 )
 
 SELECT
-    sd.id AS tb_sensordevice_id
+    sd.id AS tb_sensordevice_id,
     sd.locationname,
     sd.locationtype,
     sd.altitude,
     c.cityname,
     co.countryname,
-    c.population_city,
-    co.population_country,
+    c.population,
+    co.population,
     c.latitude,
     c.longitude
-FROM tb_sensordevice 
-JOIN tb_city c ON sd.city_id = c.id
-JOIN tb_country co ON c.country_id = co.id
+FROM tb_sensordevice sd
+JOIN tb_city c ON sd.cityid = c.id
+JOIN tb_country co ON c.countryid = co.id
 ORDER BY sd.id;

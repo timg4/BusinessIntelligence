@@ -6,15 +6,15 @@ SET search_path TO dwh_061, stg_061;
 -- =======================================
 
 -- 1) Truncate target
-TRUNCATE TABLE ft_name1 RESTART IDENTITY CASCADE;
+TRUNCATE TABLE dim_sensortype RESTART IDENTITY CASCADE;
 
 INSERT INTO dim_sensortype (
-    tb_sensortype_id, typename, manufacturer, technology, etl_load_timestamp)
+    tb_sensortype_id, typename, manufacturer, technology)
 
 SELECT 
     st.id,
     st.typename,
     st.manufacturer,
-    st.technology,
+    st.technology
 FROM tb_sensortype st
 ORDER BY st.id;
