@@ -35,8 +35,6 @@ CREATE TABLE tb_servicetype (
     , CHECK (category IN ('Hardware', 'Software', 'Diagnostics', 'Calibration'))
 );
 
-
-
 CREATE TABLE tb_role (
     id INT NOT NULL PRIMARY KEY
     , rolelevel INT NOT NULL -- 1-Entry, 2-Junior, 3-Senior, 4-Lead
