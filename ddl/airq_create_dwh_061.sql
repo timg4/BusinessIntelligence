@@ -111,13 +111,22 @@ CREATE TABLE dim_alert (
     CONSTRAINT uq_dim_alert_bk UNIQUE (tb_alert_id)
 );
 
+CREATE TABLE dim_emissionsource (
+    sk_emissionsource BIGSERIAL PRIMARY KEY
+    , tb_emissionsource_id INT NOT NULL
+    , sourcetype VARCHAR(100) NOT NULL
+    , description VARCHAR(255)
+    , etl_load_timestamp TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
+    , CONSTRAINT uq_dim_emissionsource_bk UNIQUE (tb_emissionsource_id)
+);
+
 
 -- .......
 
 -- FACT 1: environmental monitoring and sensor data
 CREATE TABLE ft_SensorData (
-    id INT NOT NULL PRIMARY KEY                  -- keep a simple surrogate PK for the fact
-    , day_id INT NOT NULL                        -- -> dim_timeday.id
+    id BIGSERIAL PRIMARY KEY                 
+    , day_id INT NOT NULL                        
     , sk_parameter BIGINT NOT NULL
     , sk_device BIGINT NOT NULL               
     , sk_sensortype  BIGINT NOT NULL
@@ -128,8 +137,8 @@ CREATE TABLE ft_SensorData (
     -- (optional) add your measures here, e.g.: measure_value NUMERIC(18,2) NOT NULL,
     , measure_value NUMERIC(18,2) NOT NULL
     , data_quality INT NOT NULL CHECK (data_quality BETWEEN 1 AND 5)
-    , alter_flag BOOLEAN NOT NULL DEFAULT FALSE
-    , alert_level INT NULL CHECK (alert_level BETWEEN 1 AND 4)
+    , alert_flag BOOLEAN NOT NULL DEFAULT FALSE
+    , alert_level INT NULL CHECK (alert_level BETWEEN 1001 AND 1004)
     , weather_tempavgday NUMERIC(5,2) NULL
 
     , etl_load_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
