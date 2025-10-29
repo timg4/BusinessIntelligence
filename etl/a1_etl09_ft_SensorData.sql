@@ -36,7 +36,16 @@ JOIN dim_sensortype ds ON ds.tb_sensortype_id = sd.sensortypeid
 JOIN dim_readingmode drm ON drm.tb_readingmode_id = re.readingmodeid
 JOIN dim_timeday td  ON td.date_value = re.readat
 
-LEFT JOIN stg_061.tb_paramalert pa ON pa.paramid = re.paramid
+-- we need to do that to only select the highest alarm otherwise we have way too many entries in the fact table
+LEFT JOIN (
+    SELECT DISTINCT ON (paramid)
+           paramid,
+           alertid,
+           threshold
+    FROM stg_061.tb_paramalert
+    ORDER BY paramid, threshold DESC
+) pa ON pa.paramid = re.paramid
+
 LEFT JOIN stg_061.tb_alert a ON a.id = pa.alertid
 LEFT JOIN dim_alert da ON da.tb_alert_id = a.id
 LEFT JOIN stg_061.tb_weather w ON w.cityid = sd.cityid AND w.observedat = re.readat;
