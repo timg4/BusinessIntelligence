@@ -137,7 +137,7 @@ CREATE TABLE ft_SensorData (
     -- (optional) add your measures here, e.g.: measure_value NUMERIC(18,2) NOT NULL,
     , measure_value NUMERIC(18,2) NOT NULL
     , data_quality INT NOT NULL CHECK (data_quality BETWEEN 1 AND 5)
-    , alert_flag BOOLEAN NOT NULL DEFAULT FALSE
+    , alert_flag INT NOT NULL DEFAULT 0 CHECK (alert_flag IN (0,1))
     , alert_level INT NULL CHECK (alert_level BETWEEN 1001 AND 1004)
     , weather_tempavgday NUMERIC(5,2) NULL
 

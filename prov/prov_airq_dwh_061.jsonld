@@ -1,0 +1,322 @@
+{
+  "@context": {
+    "prov": "http://www.w3.org/ns/prov#",
+    "dct": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "oltp://tb_<oltp_table_1>",
+      "@type": "prov:Entity",
+      "dct:title": "tb_<oltp_table_1>",
+      "dct:format": "text/csv"
+    },
+    {
+      "@id": "oltp://tb_<oltp_table_2>",
+      "@type": "prov:Entity",
+      "dct:title": "tb_<oltp_table_2>",
+      "dct:format": "text/csv"
+    },
+    {
+      "@id": "oltp://tb_<oltp_table_3>",
+      "@type": "prov:Entity",
+      "dct:title": "tb_<oltp_table_3>",
+      "dct:format": "text/csv"
+    },
+    {
+      "@id": "oltp://tb_<oltp_table_4>",
+      "@type": "prov:Entity",
+      "dct:title": "tb_<oltp_table_4>",
+      "dct:format": "text/csv"
+    },
+    {
+      "@id": "oltp://tb_<oltp_table_a>",
+      "@type": "prov:Entity",
+      "dct:title": "tb_<oltp_table_a>",
+      "dct:format": "text/csv"
+    },
+    {
+      "@id": "oltp://tb_<oltp_table_b>",
+      "@type": "prov:Entity",
+      "dct:title": "tb_<oltp_table_b>",
+      "dct:format": "text/csv"
+    },
+    {
+      "@id": "oltp://tb_<oltp_table_c>",
+      "@type": "prov:Entity",
+      "dct:title": "tb_<oltp_table_c>",
+      "dct:format": "text/csv"
+    },
+    {
+      "@id": "file:etl/a1_etl01_dim_timeday.sql",
+      "@type": [
+        "prov:Entity",
+        "prov:Plan"
+      ],
+      "dct:title": "a1_etl01_dim_timeday.sql",
+      "dct:format": "text/sql",
+      "contentHash": "228b1784e0264fb6301aca5a2f2e4f4ef4a9a813c09847c5ad454add77ce71bb"
+    },
+    {
+      "@id": "file:etl/a1_etl02_dim_servicetype.sql",
+      "@type": [
+        "prov:Entity",
+        "prov:Plan"
+      ],
+      "dct:title": "a1_etl02_dim_servicetype.sql",
+      "dct:format": "text/sql",
+      "contentHash": "db358c0270ca571968c42812052933d782895a911a297f54bae636d2c00e61ed"
+    },
+    {
+      "@id": "file:etl/a1_etl03_dim_parameter.sql",
+      "@type": [
+        "prov:Entity",
+        "prov:Plan"
+      ],
+      "dct:title": "a1_etl03_dim_parameter.sql",
+      "dct:format": "text/sql",
+      "contentHash": "757a19ff582ea69e220f124a8f5cf0d46a4a45fe4aee39aabda1fa93dd9efee8"
+    },
+    {
+      "@id": "file:etl/a1_etl04_dim_technician_role_scd2.sql",
+      "@type": [
+        "prov:Entity",
+        "prov:Plan"
+      ],
+      "dct:title": "a1_etl04_dim_technician_role_scd2.sql",
+      "dct:format": "text/sql",
+      "contentHash": "3dccf818c66d0b7fa1322dd4a199944502f1160634598971144a68e2e9666196"
+    },
+    {
+      "@id": "file:etl/a1_etl05_dim_sensortype.sql",
+      "@type": [
+        "prov:Entity",
+        "prov:Plan"
+      ],
+      "dct:title": "a1_etl05_dim_sensortype.sql",
+      "dct:format": "text/sql",
+      "contentHash": "ee5be4fb74c20dceef15734d48bd2422314bb34a34f7d998e05d6549f598930c"
+    },
+    {
+      "@id": "file:etl/a1_etl06_dim_device.sql",
+      "@type": [
+        "prov:Entity",
+        "prov:Plan"
+      ],
+      "dct:title": "a1_etl06_dim_device.sql",
+      "dct:format": "text/sql",
+      "contentHash": "7ca54b3c6fd2deb76a3b072b4cb12cb545224b58a2b65808da7b52e30fce4a52"
+    },
+    {
+      "@id": "file:etl/a1_etl07_dim_readingmode.sql",
+      "@type": [
+        "prov:Entity",
+        "prov:Plan"
+      ],
+      "dct:title": "a1_etl07_dim_readingmode.sql",
+      "dct:format": "text/sql",
+      "contentHash": "d825d456c06b83edaa7a1065c1b0564df1e6a1ba64bc4e729d7e9730460779ac"
+    },
+    {
+      "@id": "file:etl/a1_etl08_dim_alert.sql",
+      "@type": [
+        "prov:Entity",
+        "prov:Plan"
+      ],
+      "dct:title": "a1_etl08_dim_alert.sql",
+      "dct:format": "text/sql",
+      "contentHash": "82b70e2b1beeaae4ef33ef86b5a2e185da8a50f0ddfc210943c818daa8ed4e48"
+    },
+    {
+      "@id": "file:etl/a1_etl09_ft_SensorData.sql",
+      "@type": [
+        "prov:Entity",
+        "prov:Plan"
+      ],
+      "dct:title": "a1_etl09_ft_SensorData.sql",
+      "dct:format": "text/sql",
+      "contentHash": "9f9916e8852343abc9a6a221ffcce4fa2a686d999b8dd8ec90ab161967de5165"
+    },
+    {
+      "@id": "file:etl/a1_etl10_dim_emissionsource.sql",
+      "@type": [
+        "prov:Entity",
+        "prov:Plan"
+      ],
+      "dct:title": "a1_etl10_dim_emissionsource.sql",
+      "dct:format": "text/sql",
+      "contentHash": "dc72bc588c09795c2eb4ae1844c81966049c3ed833ea5eebab8d31a6c75c1a06"
+    },
+    {
+      "@id": "file:etl/gegebenes zeug1.sql",
+      "@type": [
+        "prov:Entity",
+        "prov:Plan"
+      ],
+      "dct:title": "gegebenes zeug1.sql",
+      "dct:format": "text/sql",
+      "contentHash": "e72c7e971df894bafd5de29dbb36708c30ba43fccd2394f10e1ce026a7f4476c"
+    },
+    {
+      "@id": "file:etl/gegebenes zeug2.sql",
+      "@type": [
+        "prov:Entity",
+        "prov:Plan"
+      ],
+      "dct:title": "gegebenes zeug2.sql",
+      "dct:format": "text/sql",
+      "contentHash": "01f5766be379bd4e1eb190c97124195defdb2b28d45c0d2900d8dd5eea16da95"
+    },
+    {
+      "@id": "db://airq/dwh_061/dim_alert",
+      "@type": "prov:Entity",
+      "dct:title": "dim_alert",
+      "rowCount": 4
+    },
+    {
+      "@id": "db://airq/dwh_061/dim_device",
+      "@type": "prov:Entity",
+      "dct:title": "dim_device",
+      "rowCount": 627
+    },
+    {
+      "@id": "db://airq/dwh_061/dim_emissionsource",
+      "@type": "prov:Entity",
+      "dct:title": "dim_emissionsource",
+      "rowCount": 6
+    },
+    {
+      "@id": "db://airq/dwh_061/dim_parameter",
+      "@type": "prov:Entity",
+      "dct:title": "dim_parameter",
+      "rowCount": 30
+    },
+    {
+      "@id": "db://airq/dwh_061/dim_readingmode",
+      "@type": "prov:Entity",
+      "dct:title": "dim_readingmode",
+      "rowCount": 8
+    },
+    {
+      "@id": "db://airq/dwh_061/dim_sensortype",
+      "@type": "prov:Entity",
+      "dct:title": "dim_sensortype",
+      "rowCount": 12
+    },
+    {
+      "@id": "db://airq/dwh_061/dim_servicetype",
+      "@type": "prov:Entity",
+      "dct:title": "dim_servicetype",
+      "rowCount": 24
+    },
+    {
+      "@id": "db://airq/dwh_061/dim_technician_role_scd2",
+      "@type": "prov:Entity",
+      "dct:title": "dim_technician_role_scd2",
+      "rowCount": 484
+    },
+    {
+      "@id": "db://airq/dwh_061/dim_timeday",
+      "@type": "prov:Entity",
+      "dct:title": "dim_timeday",
+      "rowCount": 731
+    },
+    {
+      "@id": "db://airq/dwh_061/ft_name2",
+      "@type": "prov:Entity",
+      "dct:title": "ft_name2",
+      "rowCount": 0
+    },
+    {
+      "@id": "db://airq/dwh_061/ft_sensordata",
+      "@type": "prov:Entity",
+      "dct:title": "ft_sensordata",
+      "rowCount": 3942292
+    },
+    {
+      "@id": "urn:airq:etl:group:061:2025-10-29T14:38:53Z",
+      "@type": "prov:Activity",
+      "dct:description": "Assignment 1 ETL run for dwh_061",
+      "prov:startedAtTime": "2025-10-29T14:38:53Z",
+      "prov:endedAtTime": "2025-10-29T14:38:53Z",
+      "prov:used": [
+        "oltp://tb_<oltp_table_1>",
+        "oltp://tb_<oltp_table_2>",
+        "oltp://tb_<oltp_table_3>",
+        "oltp://tb_<oltp_table_4>",
+        "oltp://tb_<oltp_table_a>",
+        "oltp://tb_<oltp_table_b>",
+        "oltp://tb_<oltp_table_c>",
+        "file:etl/a1_etl01_dim_timeday.sql",
+        "file:etl/a1_etl02_dim_servicetype.sql",
+        "file:etl/a1_etl03_dim_parameter.sql",
+        "file:etl/a1_etl04_dim_technician_role_scd2.sql",
+        "file:etl/a1_etl05_dim_sensortype.sql",
+        "file:etl/a1_etl06_dim_device.sql",
+        "file:etl/a1_etl07_dim_readingmode.sql",
+        "file:etl/a1_etl08_dim_alert.sql",
+        "file:etl/a1_etl09_ft_SensorData.sql",
+        "file:etl/a1_etl10_dim_emissionsource.sql",
+        "file:etl/gegebenes zeug1.sql",
+        "file:etl/gegebenes zeug2.sql"
+      ],
+      "prov:generated": [
+        "db://airq/dwh_061/dim_alert",
+        "db://airq/dwh_061/dim_device",
+        "db://airq/dwh_061/dim_emissionsource",
+        "db://airq/dwh_061/dim_parameter",
+        "db://airq/dwh_061/dim_readingmode",
+        "db://airq/dwh_061/dim_sensortype",
+        "db://airq/dwh_061/dim_servicetype",
+        "db://airq/dwh_061/dim_technician_role_scd2",
+        "db://airq/dwh_061/dim_timeday",
+        "db://airq/dwh_061/ft_name2",
+        "db://airq/dwh_061/ft_sensordata"
+      ],
+      "prov:wasAssociatedWith": [
+        "urn:person:A",
+        "urn:person:B",
+        "urn:software:jupyter",
+        "urn:software:postgres",
+        "urn:software:os"
+      ],
+      "prov:qualifiedAssociation": [
+        {
+          "@type": "prov:Association",
+          "prov:agent": "urn:person:A",
+          "prov:hadRole": "owner:ft_<meaningfulname1>"
+        },
+        {
+          "@type": "prov:Association",
+          "prov:agent": "urn:person:B",
+          "prov:hadRole": "owner:ft_<meaningfulname2>"
+        }
+      ]
+    },
+    {
+      "@id": "urn:person:A",
+      "@type": "prov:Agent",
+      "dct:title": "Surname, Name"
+    },
+    {
+      "@id": "urn:person:B",
+      "@type": "prov:Agent",
+      "dct:title": "Surname, Name"
+    },
+    {
+      "@id": "urn:software:jupyter",
+      "@type": "prov:SoftwareAgent",
+      "dct:title": "Jupyter Notebook"
+    },
+    {
+      "@id": "urn:software:postgres",
+      "@type": "prov:SoftwareAgent",
+      "dct:title": "PostgreSQL"
+    },
+    {
+      "@id": "urn:software:os",
+      "@type": "prov:SoftwareAgent",
+      "dct:title": "nt"
+    }
+  ]
+}

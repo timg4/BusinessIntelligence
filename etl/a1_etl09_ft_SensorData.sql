@@ -25,7 +25,7 @@ SELECT
     da.sk_alert,                                  
     re.recordedvalue,                             
     re.dataquality,                               
-    CASE WHEN re.recordedvalue > pa.threshold THEN TRUE ELSE FALSE END AS alert_flag,
+    CASE WHEN re.recordedvalue > pa.threshold THEN 1 ELSE 0 END AS alert_flag,
     a.id AS alert_level,                         
     w.tempdayavg                                  
 FROM stg_061.tb_readingevent re

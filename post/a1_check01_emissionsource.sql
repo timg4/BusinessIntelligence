@@ -9,6 +9,5 @@ WITH joined AS (
 )
 SELECT
   joined_rows,
-  CASE WHEN joined_rows > 0 THEN 'OK' ELSE 'fail' END AS status_check,
-  CURRENT_TIMESTAMP(0)::timestamp AS run_time
+  CASE WHEN joined_rows > 0 THEN 'OK' ELSE 'fail' END AS status_check
 FROM joined;
