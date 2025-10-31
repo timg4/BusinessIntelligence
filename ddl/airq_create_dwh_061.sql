@@ -121,8 +121,6 @@ CREATE TABLE dim_emissionsource (
 );
 
 
--- .......
-
 -- FACT 1: environmental monitoring and sensor data
 CREATE TABLE ft_SensorData (
     id BIGSERIAL PRIMARY KEY                 
@@ -132,15 +130,12 @@ CREATE TABLE ft_SensorData (
     , sk_sensortype  BIGINT NOT NULL
     , sk_alert       BIGINT NULL
     , sk_readingmode BIGINT NOT NULL
-    
-
     -- (optional) add your measures here, e.g.: measure_value NUMERIC(18,2) NOT NULL,
     , measure_value NUMERIC(18,2) NOT NULL
     , data_quality INT NOT NULL CHECK (data_quality BETWEEN 1 AND 5)
     , alert_flag INT NOT NULL DEFAULT 0 CHECK (alert_flag IN (0,1))
     , alert_level INT NULL CHECK (alert_level BETWEEN 1001 AND 1004)
     , weather_tempavgday NUMERIC(5,2) NULL
-
     , etl_load_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     , CONSTRAINT fk_SensorData_timeday FOREIGN KEY (day_id) REFERENCES dim_timeday(id)
     , CONSTRAINT fk_SensorData_parameter FOREIGN KEY (sk_parameter) REFERENCES dim_parameter(sk_parameter)
@@ -149,7 +144,6 @@ CREATE TABLE ft_SensorData (
     , CONSTRAINT fk_SensorData_alert FOREIGN KEY (sk_alert) REFERENCES dim_alert(sk_alert)
     , CONSTRAINT fk_SensorData_readingmode FOREIGN KEY (sk_readingmode) REFERENCES dim_readingmode(sk_readingmode)
 );
-
 -- helpful indexes for join performance (optional but recommended)
 CREATE INDEX ix_ft_SensorData_day           ON ft_SensorData(day_id);
 CREATE INDEX ix_ft_SensorData_parameter     ON ft_SensorData(sk_parameter);
