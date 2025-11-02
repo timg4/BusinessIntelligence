@@ -88,27 +88,27 @@ CREATE TABLE dim_device(
   ); 
 
 CREATE TABLE dim_readingmode (
-    sk_readingmode BIGSERIAL PRIMARY KEY,
-    tb_readingmode_id INT NOT NULL,        
-    modename VARCHAR(255) NOT NULL,
-    latency INT NOT NULL,
-    details VARCHAR(255) NOT NULL,
-    valid_from DATE NOT NULL,
-    valid_to DATE NOT NULL,
-    is_current BOOLEAN NOT NULL,
-    etl_load_timestamp TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT uq_dim_readingmode_timerange UNIQUE (tb_readingmode_id, valid_from, valid_to)
+    sk_readingmode BIGSERIAL PRIMARY KEY
+    , tb_readingmode_id INT NOT NULL
+    , modename VARCHAR(255) NOT NULL
+    , latency INT NOT NULL
+    , details VARCHAR(255) NOT NULL
+    , valid_from DATE NOT NULL
+    , valid_to DATE NOT NULL
+    , is_current BOOLEAN NOT NULL
+    , etl_load_timestamp TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
+    , CONSTRAINT uq_dim_readingmode_timerange UNIQUE (tb_readingmode_id, valid_from, valid_to)
 );
 
 CREATE TABLE dim_alert (
-    sk_alert BIGSERIAL PRIMARY KEY,
-    tb_alert_id INT NOT NULL,
-    alertname VARCHAR(255) NOT NULL,    
-    colour VARCHAR(255) NOT NULL,        
-    details VARCHAR(255) NOT NULL,
-    severity_level INT NOT NULL,       
-    etl_load_timestamp TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT uq_dim_alert_bk UNIQUE (tb_alert_id)
+    sk_alert BIGSERIAL PRIMARY KEY
+    , tb_alert_id INT NOT NULL
+    , alertname VARCHAR(255) NOT NULL
+    , colour VARCHAR(255) NOT NULL
+    , details VARCHAR(255) NOT NULL
+    , severity_level INT NOT NULL
+    , etl_load_timestamp TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
+    , CONSTRAINT uq_dim_alert_bk UNIQUE (tb_alert_id)
 );
 
 CREATE TABLE dim_emissionsource (
