@@ -9,6 +9,7 @@ INSERT INTO ft_SensorData (
     sk_sensortype,
     sk_readingmode,
     sk_alert,
+    sk_emissionsource,
     measure_value,
     data_quality,
     alert_flag,
@@ -22,7 +23,8 @@ SELECT
     dd.sk_device,                                 
     ds.sk_sensortype,                             
     drm.sk_readingmode,                           
-    da.sk_alert,                                  
+    da.sk_alert,
+    des.sk_emissionsource,                                   
     re.recordedvalue,                             
     re.dataquality,                               
     CASE WHEN re.recordedvalue > pa.threshold THEN 1 ELSE 0 END AS alert_flag,
@@ -39,13 +41,21 @@ JOIN dim_timeday td  ON td.date_value = re.readat
 -- we need to do that to only select the highest alarm otherwise we have way too many entries in the fact table
 LEFT JOIN (
     SELECT DISTINCT ON (paramid)
-           paramid,
-           alertid,
-           threshold
+           paramid, alertid, threshold
     FROM stg_061.tb_paramalert
     ORDER BY paramid, threshold DESC
 ) pa ON pa.paramid = re.paramid
-
 LEFT JOIN stg_061.tb_alert a ON a.id = pa.alertid
 LEFT JOIN dim_alert da ON da.tb_alert_id = a.id
+
+-- the same goes for the emission source
+LEFT JOIN (
+    SELECT DISTINCT ON (parameter_id)
+           parameter_id, emissionsource_id
+    FROM stg_061.tb_parameter_source
+    ORDER BY parameter_id, relevance DESC
+) ps ON ps.parameter_id = re.paramid
+LEFT JOIN dim_emissionsource des
+       ON des.tb_emissionsource_id = ps.emissionsource_id
+
 LEFT JOIN stg_061.tb_weather w ON w.cityid = sd.cityid AND w.observedat = re.readat;

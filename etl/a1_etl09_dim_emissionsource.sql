@@ -8,7 +8,7 @@ INSERT INTO dim_emissionsource (
     description
 )
 SELECT
-    es.id,
+    es.id as tb_emissionsource_id, 
     es.sourcetype,
     es.description
 FROM tb_emissionsource es

@@ -130,6 +130,7 @@ CREATE TABLE ft_SensorData (
     , sk_sensortype  BIGINT NOT NULL
     , sk_alert       BIGINT NULL
     , sk_readingmode BIGINT NOT NULL
+    , sk_emissionsource BIGINT NULL
     -- (optional) add your measures here, e.g.: measure_value NUMERIC(18,2) NOT NULL,
     , measure_value NUMERIC(18,2) NOT NULL
     , data_quality INT NOT NULL CHECK (data_quality BETWEEN 1 AND 5)
@@ -143,6 +144,7 @@ CREATE TABLE ft_SensorData (
     , CONSTRAINT fk_SensorData_sensortype FOREIGN KEY (sk_sensortype) REFERENCES dim_sensortype(sk_sensortype)
     , CONSTRAINT fk_SensorData_alert FOREIGN KEY (sk_alert) REFERENCES dim_alert(sk_alert)
     , CONSTRAINT fk_SensorData_readingmode FOREIGN KEY (sk_readingmode) REFERENCES dim_readingmode(sk_readingmode)
+    , CONSTRAINT fk_SensorData_emissionsource FOREIGN KEY (sk_emissionsource) REFERENCES dim_emissionsource(sk_emissionsource)
 );
 -- helpful indexes for join performance (optional but recommended)
 CREATE INDEX ix_ft_SensorData_day           ON ft_SensorData(day_id);
@@ -150,6 +152,7 @@ CREATE INDEX ix_ft_SensorData_parameter     ON ft_SensorData(sk_parameter);
 CREATE INDEX ix_ft_SensorData_device   ON ft_SensorData(sk_device);
 CREATE INDEX ix_ft_SensorData_sensortype    ON ft_SensorData(sk_sensortype);
 CREATE INDEX ix_ft_SensorData_readingmode   ON ft_SensorData(sk_readingmode);
+CREATE INDEX ix_ft_SensorData_emissionsource  ON ft_SensorData(sk_emissionsource);
 
 -- FACT 2: linked to TimeDay + Parameter + Technician Role (SCD2)
 CREATE TABLE ft_name2 (
