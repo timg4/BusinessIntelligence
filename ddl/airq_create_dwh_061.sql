@@ -49,19 +49,19 @@ CREATE TABLE dim_parameter (
   , etl_load_timestamp TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
   , CONSTRAINT uq_dim_parameter_bk UNIQUE (tb_param_id)
 );
-
-CREATE TABLE dim_technician_role_scd2 (
-  sk_technician_role BIGSERIAL PRIMARY KEY
-  , badgenumber VARCHAR(255) NOT NULL   -- business key
-  , rolelevel INT NOT NULL
-  , category VARCHAR(255) NOT NULL
-  , rolename               VARCHAR(255) NOT NULL
-  , effective_from         DATE NOT NULL
-  , effective_to           DATE NOT NULL  -- '9999-12-31' for current
-  , is_current             BOOLEAN NOT NULL
-  , etl_load_timestamp     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(0)
-  , CONSTRAINT ux_techrole_bk_timerange UNIQUE (badgenumber, effective_from, effective_to)
-);
+--
+--CREATE TABLE dim_technician_role_scd2 (
+--  sk_technician_role BIGSERIAL PRIMARY KEY
+--  , badgenumber VARCHAR(255) NOT NULL   -- business key
+--  , rolelevel INT NOT NULL
+--  , category VARCHAR(255) NOT NULL
+--  , rolename               VARCHAR(255) NOT NULL
+--  , effective_from         DATE NOT NULL
+--  , effective_to           DATE NOT NULL  -- '9999-12-31' for current
+--  , is_current             BOOLEAN NOT NULL
+--  , etl_load_timestamp     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(0)
+--  , CONSTRAINT ux_techrole_bk_timerange UNIQUE (badgenumber, effective_from, effective_to)
+--);
 
 
 -- manually added dimensions
@@ -77,14 +77,13 @@ CREATE TABLE dim_sensortype(
 
 CREATE TABLE dim_technician (
     sk_technician BIGSERIAL PRIMARY KEY,
-    tb_technician_id INT NOT NULL,          -- OLTP key
-    technician_name VARCHAR(200) NOT NULL,  -- full name
-    department_name VARCHAR(100) NOT NULL,  -- e.g., Calibration, Maintenance
-    region_name VARCHAR(100) NOT NULL,      -- e.g., Europe, Asia, North America
-    qualification_level VARCHAR(50) NOT NULL, -- e.g., Junior, Senior, Lead
-    hire_date DATE,
+    tb_employee_id INT NOT NULL,             -- FK to tb_employee.id
+    badgenumber VARCHAR(50) NOT NULL,        -- unique business key   -- from tb_employee (if exists)
+    role_category VARCHAR(100) NOT NULL,     -- from tb_role.category
+    role_level INT NOT NULL,                 -- from tb_role.rolelevel
+    rolename VARCHAR(200) NOT NULL,          -- from tb_role.rolename
     etl_load_timestamp TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT uq_dim_technician_bk UNIQUE (tb_technician_id)
+    CONSTRAINT uq_dim_technician_bk UNIQUE (tb_employee_id)
 );
 
 CREATE TABLE dim_device (
@@ -177,7 +176,7 @@ CREATE TABLE ft_service_event (
     day_id INT NOT NULL,
     sk_device BIGINT NOT NULL,
     sk_servicetype BIGINT NOT NULL,
-    sk_technician_role BIGINT NOT NULL,
+    --sk_technician_role BIGINT NOT NULL,
     service_cost NUMERIC(10,2) NOT NULL,
     service_duration_minutes INT NOT NULL,
     service_quality_score INT NOT NULL CHECK (service_quality_score BETWEEN 1 AND 5),
@@ -185,8 +184,8 @@ CREATE TABLE ft_service_event (
     etl_load_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_service_day FOREIGN KEY (day_id) REFERENCES dim_timeday(id),
     CONSTRAINT fk_service_device FOREIGN KEY (sk_device) REFERENCES dim_device(sk_device),
-    CONSTRAINT fk_service_type FOREIGN KEY (sk_servicetype) REFERENCES dim_servicetype(sk_servicetype),
-    CONSTRAINT fk_service_techrole FOREIGN KEY (sk_technician_role) REFERENCES dim_technician_role_scd2(sk_technician_role)
+    CONSTRAINT fk_service_type FOREIGN KEY (sk_servicetype) REFERENCES dim_servicetype(sk_servicetype)
+    --CONSTRAINT fk_service_techrole FOREIGN KEY (sk_technician_role) REFERENCES dim_technician_role_scd2(sk_technician_role)
 );
 
 ALTER TABLE ft_service_event
@@ -198,5 +197,5 @@ ADD CONSTRAINT fk_service_technician
 CREATE INDEX ix_ft_service_day ON ft_service_event(day_id);
 CREATE INDEX ix_ft_service_device ON ft_service_event(sk_device);
 CREATE INDEX ix_ft_service_type ON ft_service_event(sk_servicetype);
-CREATE INDEX ix_ft_service_techrole ON ft_service_event(sk_technician_role);
+--CREATE INDEX ix_ft_service_techrole ON ft_service_event(sk_technician_role);
 CREATE INDEX ix_ft_service_technician ON ft_service_event(sk_technician);

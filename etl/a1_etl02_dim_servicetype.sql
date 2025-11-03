@@ -20,8 +20,8 @@ SELECT
     st.servicegroup,
     st.category,
     st.typename,
-    st.min_required_level,
-    CASE st.min_required_level
+    st.minlevel,
+    CASE st.minlevel
         WHEN 1 THEN 'Entry'
         WHEN 2 THEN 'Junior'
         WHEN 3 THEN 'Senior'
