@@ -27,12 +27,17 @@ CREATE TABLE dim_timeday (
     , etl_load_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+
 CREATE TABLE dim_servicetype (
-  sk_servicetype BIGSERIAL PRIMARY KEY       -- SK
-  , tb_servicetype_id INT NOT NULL           -- ID from OLTP
-  , typename VARCHAR(200) NOT NULL
-  , etl_load_timestamp TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
-  , CONSTRAINT uq_dim_servicetype_bk UNIQUE (tb_servicetype_id)
+    sk_servicetype BIGSERIAL PRIMARY KEY,
+    tb_servicetype_id INT NOT NULL,
+    servicegroup VARCHAR(100) NOT NULL,            -- e.g., Maintenance, Calibration
+    category VARCHAR(100) NOT NULL,                -- e.g., Hardware, Software
+    typename VARCHAR(200) NOT NULL,                -- e.g., Sensor Calibration
+    min_required_level INT NOT NULL,               -- numeric representation of required level
+    qualification_level_name VARCHAR(50) NOT NULL, -- e.g., Junior, Senior
+    etl_load_timestamp TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT uq_dim_servicetype_bk UNIQUE (tb_servicetype_id)
 );
 
 CREATE TABLE dim_parameter (
@@ -70,22 +75,34 @@ CREATE TABLE dim_sensortype(
   , CONSTRAINT uq_dim_sensortype_bk UNIQUE (tb_sensortype_id)
 );
 
+CREATE TABLE dim_technician (
+    sk_technician BIGSERIAL PRIMARY KEY,
+    tb_technician_id INT NOT NULL,          -- OLTP key
+    technician_name VARCHAR(200) NOT NULL,  -- full name
+    department_name VARCHAR(100) NOT NULL,  -- e.g., Calibration, Maintenance
+    region_name VARCHAR(100) NOT NULL,      -- e.g., Europe, Asia, North America
+    qualification_level VARCHAR(50) NOT NULL, -- e.g., Junior, Senior, Lead
+    hire_date DATE,
+    etl_load_timestamp TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT uq_dim_technician_bk UNIQUE (tb_technician_id)
+);
 
-CREATE TABLE dim_device(
-    sk_device BIGSERIAL PRIMARY KEY
-    , tb_sensordevice_id INT NOT NULL
-    , locationname VARCHAR(200) NOT NULL
-    , locationtype VARCHAR(200) NOT NULL
-    , altitude INT NOT NULL
-    , cityname VARCHAR(200) NOT NULL
-    , countryname VARCHAR(200) NOT NULL
-    , population_city INT NOT NULL
-    , population_country INT NOT NULL
-    , latitude DECIMAL (9,6) NOT NULL
-    , longitude DECIMAL (9,6) NOT NULL
-    , etl_load_timestamp TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    , CONSTRAINT uq_dim_device_bk UNIQUE (tb_sensordevice_id)
-  ); 
+CREATE TABLE dim_device (
+    sk_device BIGSERIAL PRIMARY KEY,
+    tb_sensordevice_id INT NOT NULL,
+    locationname VARCHAR(200) NOT NULL,  -- Device name or station
+    locationtype VARCHAR(200) NOT NULL,  -- Urban, Industrial, etc.
+    altitude INT NOT NULL,
+    cityname VARCHAR(200) NOT NULL,
+    countryname VARCHAR(200) NOT NULL,
+    population_city INT NOT NULL,
+    population_country INT NOT NULL,
+    latitude DECIMAL(9,6) NOT NULL,
+    longitude DECIMAL(9,6) NOT NULL,
+    manufacturer VARCHAR(200) NULL,
+    etl_load_timestamp TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT uq_dim_device_bk UNIQUE (tb_sensordevice_id)
+);
 
 CREATE TABLE dim_readingmode (
     sk_readingmode BIGSERIAL PRIMARY KEY
@@ -152,21 +169,31 @@ CREATE INDEX ix_ft_SensorData_sensortype    ON ft_SensorData(sk_sensortype);
 CREATE INDEX ix_ft_SensorData_readingmode   ON ft_SensorData(sk_readingmode);
 
 -- FACT 2: linked to TimeDay + Parameter + Technician Role (SCD2)
-CREATE TABLE ft_name2 (
-    id INT NOT NULL PRIMARY KEY                  -- keep a simple surrogate PK for the fact
-    , day_id INT NOT NULL                        -- -> dim_timeday.id
-    , sk_parameter BIGINT NOT NULL               -- -> dim_parameter.sk_parameter
-    , sk_technician_role BIGINT NOT NULL         -- -> dim_technician_role_scd2.sk_technician_role
-    -- (optional) add your measures here
-    , etl_load_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-    , CONSTRAINT fk_name2_day FOREIGN KEY (day_id) REFERENCES dim_timeday(id)
-    , CONSTRAINT fk_name2_parameter FOREIGN KEY (sk_parameter) REFERENCES dim_parameter(sk_parameter)
-    , CONSTRAINT fk_name2_techrole FOREIGN KEY (sk_technician_role) REFERENCES dim_technician_role_scd2(sk_technician_role)
+CREATE TABLE ft_service_event (
+    id BIGSERIAL PRIMARY KEY,
+    day_id INT NOT NULL,
+    sk_device BIGINT NOT NULL,
+    sk_servicetype BIGINT NOT NULL,
+    sk_technician_role BIGINT NOT NULL,
+    service_cost NUMERIC(10,2) NOT NULL,
+    service_duration_minutes INT NOT NULL,
+    service_quality_score INT NOT NULL CHECK (service_quality_score BETWEEN 1 AND 5),
+    underqualified_flag BOOLEAN NOT NULL DEFAULT FALSE,
+    etl_load_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_service_day FOREIGN KEY (day_id) REFERENCES dim_timeday(id),
+    CONSTRAINT fk_service_device FOREIGN KEY (sk_device) REFERENCES dim_device(sk_device),
+    CONSTRAINT fk_service_type FOREIGN KEY (sk_servicetype) REFERENCES dim_servicetype(sk_servicetype),
+    CONSTRAINT fk_service_techrole FOREIGN KEY (sk_technician_role) REFERENCES dim_technician_role_scd2(sk_technician_role)
 );
 
--- helpful indexes for join performance (optional but recommended)
-CREATE INDEX ix_ft_name2_day           ON ft_name2(day_id);
-CREATE INDEX ix_ft_name2_parameter     ON ft_name2(sk_parameter);
-CREATE INDEX ix_ft_name2_techrole      ON ft_name2(sk_technician_role);
+ALTER TABLE ft_service_event
+ADD COLUMN sk_technician BIGINT,
+ADD CONSTRAINT fk_service_technician
+    FOREIGN KEY (sk_technician)
+    REFERENCES dim_technician(sk_technician);
 
-
+CREATE INDEX ix_ft_service_day ON ft_service_event(day_id);
+CREATE INDEX ix_ft_service_device ON ft_service_event(sk_device);
+CREATE INDEX ix_ft_service_type ON ft_service_event(sk_servicetype);
+CREATE INDEX ix_ft_service_techrole ON ft_service_event(sk_technician_role);
+CREATE INDEX ix_ft_service_technician ON ft_service_event(sk_technician);
