@@ -176,7 +176,6 @@ CREATE TABLE ft_service_event (
     day_id INT NOT NULL,
     sk_device BIGINT NOT NULL,
     sk_servicetype BIGINT NOT NULL,
-    --sk_technician_role BIGINT NOT NULL,
     service_cost NUMERIC(10,2) NOT NULL,
     service_duration_minutes INT NOT NULL,
     service_quality_score INT NOT NULL CHECK (service_quality_score BETWEEN 1 AND 5),
@@ -185,7 +184,6 @@ CREATE TABLE ft_service_event (
     CONSTRAINT fk_service_day FOREIGN KEY (day_id) REFERENCES dim_timeday(id),
     CONSTRAINT fk_service_device FOREIGN KEY (sk_device) REFERENCES dim_device(sk_device),
     CONSTRAINT fk_service_type FOREIGN KEY (sk_servicetype) REFERENCES dim_servicetype(sk_servicetype)
-    --CONSTRAINT fk_service_techrole FOREIGN KEY (sk_technician_role) REFERENCES dim_technician_role_scd2(sk_technician_role)
 );
 
 ALTER TABLE ft_service_event
@@ -197,5 +195,4 @@ ADD CONSTRAINT fk_service_technician
 CREATE INDEX ix_ft_service_day ON ft_service_event(day_id);
 CREATE INDEX ix_ft_service_device ON ft_service_event(sk_device);
 CREATE INDEX ix_ft_service_type ON ft_service_event(sk_servicetype);
---CREATE INDEX ix_ft_service_techrole ON ft_service_event(sk_technician_role);
 CREATE INDEX ix_ft_service_technician ON ft_service_event(sk_technician);
