@@ -8,6 +8,6 @@ WITH check_flag AS (
   WHERE (t.role_level < s.min_required_level  AND underqualified_flag = FALSE)
      OR (t.role_level >= s.min_required_level AND underqualified_flag = TRUE)
 )
-SELECT
-  mismatch,
-  CASE WHEN mismatch = 0 THEN 'OK' ELSE 'fail' END AS status_check;
+SELECT *,
+  CASE WHEN mismatch = 0 THEN 'OK' ELSE 'fail' END AS status_check
+FROM check_flag;
