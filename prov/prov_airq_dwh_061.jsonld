@@ -6,24 +6,6 @@
   },
   "@graph": [
     {
-      "@id": "oltp://tb_<oltp_table_3>",
-      "@type": "prov:Entity",
-      "dct:title": "tb_<oltp_table_3>",
-      "dct:format": "text/csv"
-    },
-    {
-      "@id": "oltp://tb_<oltp_table_4>",
-      "@type": "prov:Entity",
-      "dct:title": "tb_<oltp_table_4>",
-      "dct:format": "text/csv"
-    },
-    {
-      "@id": "oltp://tb_<oltp_table_c>",
-      "@type": "prov:Entity",
-      "dct:title": "tb_<oltp_table_c>",
-      "dct:format": "text/csv"
-    },
-    {
       "@id": "file:csv/tb_alert.csv",
       "@type": "prov:Entity",
       "dct:title": "tb_alert.csv",
@@ -35,14 +17,14 @@
       "@type": "prov:Entity",
       "dct:title": "tb_city.csv",
       "dct:format": "text/csv",
-      "contentHash": "1dff80d0e34558a9adb2a0524a7e234280ea67bf8a7310bc32378a1a96f07530"
+      "contentHash": "c2b686a46c0270d167641e3e51f221cde2ef931c19334ee919db1379dfa4a990"
     },
     {
       "@id": "file:csv/tb_country.csv",
       "@type": "prov:Entity",
       "dct:title": "tb_country.csv",
       "dct:format": "text/csv",
-      "contentHash": "7d205d5ea3112b8b053d2c117665a1b87499bd426d5d58c3ded8cd9c9dfdc475"
+      "contentHash": "1802be5f9a3aec704427c5e8939a10c3ae656f680dfb7ba85d7e31a776e7f1ba"
     },
     {
       "@id": "oltp://tb_emissionsource",
@@ -51,11 +33,18 @@
       "dct:format": "text/csv"
     },
     {
+      "@id": "file:csv/tb_employee.csv",
+      "@type": "prov:Entity",
+      "dct:title": "tb_employee.csv",
+      "dct:format": "text/csv",
+      "contentHash": "cf124109e600522b3772ff797b5019de1ab2f34daa8ec1abc44430f8647a68c9"
+    },
+    {
       "@id": "file:csv/tb_param.csv",
       "@type": "prov:Entity",
       "dct:title": "tb_param.csv",
       "dct:format": "text/csv",
-      "contentHash": "4190e2a1b24d62390c6bd464271617029c0648ed9c420dfa8abc1c7c59555b15"
+      "contentHash": "f98828786f2d82246403441783ddff3cb8fff5d1ec63143af07ecb00c400c7f3"
     },
     {
       "@id": "oltp://tb_param_source",
@@ -68,35 +57,56 @@
       "@type": "prov:Entity",
       "dct:title": "tb_paramalert.csv",
       "dct:format": "text/csv",
-      "contentHash": "d8da560f83d09dd7cab12c3d84078b1bea605ab6c0e727ae9f47777269891826"
+      "contentHash": "ecbfe5f3d4aad3f177303291daba41924003b8e8ebeb73f8eca4c40087ae0fe6"
     },
     {
       "@id": "file:csv/tb_readingevent.csv",
       "@type": "prov:Entity",
       "dct:title": "tb_readingevent.csv",
       "dct:format": "text/csv",
-      "contentHash": "fe1f8efce86a0c08d7c4a7bec96ea6e4a69d54257ed486ba15b0bbffbe5ae022"
+      "contentHash": "106705575a41bcc802e3207e9729ee83904341272edc1f511d30bc2914ec11f5"
     },
     {
       "@id": "file:csv/tb_readingmode.csv",
       "@type": "prov:Entity",
       "dct:title": "tb_readingmode.csv",
       "dct:format": "text/csv",
-      "contentHash": "1809b75c0b6c73e685f0f2f4260485f28ed26683295067a49f00191abf61cfe4"
+      "contentHash": "d073c644796994edf373388967cb84353daa6c00ae80b11aaba66925956b7e3f"
+    },
+    {
+      "@id": "file:csv/tb_role.csv",
+      "@type": "prov:Entity",
+      "dct:title": "tb_role.csv",
+      "dct:format": "text/csv",
+      "contentHash": "77885965205ca8954e65e22186d7c20d86c0c4e363e4c7cfdb0e94e26496bd91"
     },
     {
       "@id": "file:csv/tb_sensordevice.csv",
       "@type": "prov:Entity",
       "dct:title": "tb_sensordevice.csv",
       "dct:format": "text/csv",
-      "contentHash": "3e57052122a45c0217a067eac7b7e5af4e6a6524fa06e4faf707273eaca959e8"
+      "contentHash": "9aaa1eb92fb0ab6d6625d7c9581e92a2c0a4394940026aa5a7a28d9c6c13b0d0"
     },
     {
       "@id": "file:csv/tb_sensortype.csv",
       "@type": "prov:Entity",
       "dct:title": "tb_sensortype.csv",
       "dct:format": "text/csv",
-      "contentHash": "e792690eac6693bdc3086650c4d78fe742b6c11c562807a5ce6b4f34ae412d13"
+      "contentHash": "ca9f98a7cab123475b1e482edb94252205501a15d87be9df22807c8232f0970a"
+    },
+    {
+      "@id": "file:csv/tb_serviceevent.csv",
+      "@type": "prov:Entity",
+      "dct:title": "tb_serviceevent.csv",
+      "dct:format": "text/csv",
+      "contentHash": "037402de60cdd57df6ed831e130fb59c81a9728ca6f138444cf2ccfb14310da3"
+    },
+    {
+      "@id": "file:csv/tb_servicetype.csv",
+      "@type": "prov:Entity",
+      "dct:title": "tb_servicetype.csv",
+      "dct:format": "text/csv",
+      "contentHash": "e50b98b105756c69748cf6597a9308d005006c33aaf817328ef06614980365fc"
     },
     {
       "@id": "file:etl/a1_etl01_dim_timeday.sql",
@@ -116,7 +126,7 @@
       ],
       "dct:title": "a1_etl02_dim_servicetype.sql",
       "dct:format": "text/sql",
-      "contentHash": "db358c0270ca571968c42812052933d782895a911a297f54bae636d2c00e61ed"
+      "contentHash": "1b1f03005055d9f460b5e4e4dbb75971b0d05b5990b8027e402ed55ce40d2b87"
     },
     {
       "@id": "file:etl/a1_etl03_dim_parameter.sql",
@@ -129,74 +139,84 @@
       "contentHash": "757a19ff582ea69e220f124a8f5cf0d46a4a45fe4aee39aabda1fa93dd9efee8"
     },
     {
-      "@id": "file:etl/a1_etl04_dim_technician_role_scd2.sql",
+      "@id": "file:etl/a1_etl04_dim_sensortype.sql",
       "@type": [
         "prov:Entity",
         "prov:Plan"
       ],
-      "dct:title": "a1_etl04_dim_technician_role_scd2.sql",
-      "dct:format": "text/sql",
-      "contentHash": "3dccf818c66d0b7fa1322dd4a199944502f1160634598971144a68e2e9666196"
-    },
-    {
-      "@id": "file:etl/a1_etl05_dim_sensortype.sql",
-      "@type": [
-        "prov:Entity",
-        "prov:Plan"
-      ],
-      "dct:title": "a1_etl05_dim_sensortype.sql",
+      "dct:title": "a1_etl04_dim_sensortype.sql",
       "dct:format": "text/sql",
       "contentHash": "ee5be4fb74c20dceef15734d48bd2422314bb34a34f7d998e05d6549f598930c"
     },
     {
-      "@id": "file:etl/a1_etl06_dim_device.sql",
+      "@id": "file:etl/a1_etl05_dim_device.sql",
       "@type": [
         "prov:Entity",
         "prov:Plan"
       ],
-      "dct:title": "a1_etl06_dim_device.sql",
+      "dct:title": "a1_etl05_dim_device.sql",
       "dct:format": "text/sql",
-      "contentHash": "7ca54b3c6fd2deb76a3b072b4cb12cb545224b58a2b65808da7b52e30fce4a52"
+      "contentHash": "efb96298a56831a72f4f6ac0b1a5e76eb27e9df0aed8f8d01956feec6f69d832"
     },
     {
-      "@id": "file:etl/a1_etl07_dim_readingmode.sql",
+      "@id": "file:etl/a1_etl06_dim_readingmode.sql",
       "@type": [
         "prov:Entity",
         "prov:Plan"
       ],
-      "dct:title": "a1_etl07_dim_readingmode.sql",
+      "dct:title": "a1_etl06_dim_readingmode.sql",
       "dct:format": "text/sql",
       "contentHash": "d825d456c06b83edaa7a1065c1b0564df1e6a1ba64bc4e729d7e9730460779ac"
     },
     {
-      "@id": "file:etl/a1_etl08_dim_alert.sql",
+      "@id": "file:etl/a1_etl07_dim_alert.sql",
       "@type": [
         "prov:Entity",
         "prov:Plan"
       ],
-      "dct:title": "a1_etl08_dim_alert.sql",
+      "dct:title": "a1_etl07_dim_alert.sql",
       "dct:format": "text/sql",
       "contentHash": "82b70e2b1beeaae4ef33ef86b5a2e185da8a50f0ddfc210943c818daa8ed4e48"
     },
     {
-      "@id": "file:etl/a1_etl10ft_SensorData.sql",
+      "@id": "file:etl/a1_etl08_dim_emissionsource.sql",
       "@type": [
         "prov:Entity",
         "prov:Plan"
       ],
-      "dct:title": "a1_etl10ft_SensorData.sql",
+      "dct:title": "a1_etl08_dim_emissionsource.sql",
+      "dct:format": "text/sql",
+      "contentHash": "8b81b5d0613e1240930c7747a6ab11f2a254e15ad147f91cb43d45489b54d72c"
+    },
+    {
+      "@id": "file:etl/a1_etl09_dim_technician.sql",
+      "@type": [
+        "prov:Entity",
+        "prov:Plan"
+      ],
+      "dct:title": "a1_etl09_dim_technician.sql",
+      "dct:format": "text/sql",
+      "contentHash": "82f975a1992166775b9a6467e8af9b2abbd67938ad16e233ee67fc4c30a0e123"
+    },
+    {
+      "@id": "file:etl/a1_etl10_ft_SensorData.sql",
+      "@type": [
+        "prov:Entity",
+        "prov:Plan"
+      ],
+      "dct:title": "a1_etl10_ft_SensorData.sql",
       "dct:format": "text/sql",
       "contentHash": "d2f4fbc27a2f38a152752d1a5588874f879f58350940a7b23a92e158428e7b26"
     },
     {
-      "@id": "file:etl/a1_etl9_dim_emissionsource.sql",
+      "@id": "file:etl/a1_etl11_ft_service_event.sql",
       "@type": [
         "prov:Entity",
         "prov:Plan"
       ],
-      "dct:title": "a1_etl9_dim_emissionsource.sql",
+      "dct:title": "a1_etl11_ft_service_event.sql",
       "dct:format": "text/sql",
-      "contentHash": "8b81b5d0613e1240930c7747a6ab11f2a254e15ad147f91cb43d45489b54d72c"
+      "contentHash": "dfda210839b3cec2600be5a072dd6b0e11e198f770b5ab0f02f0c92ccb057951"
     },
     {
       "@id": "db://airq/dwh_061/dim_alert",
@@ -241,9 +261,9 @@
       "rowCount": 24
     },
     {
-      "@id": "db://airq/dwh_061/dim_technician_role_scd2",
+      "@id": "db://airq/dwh_061/dim_technician",
       "@type": "prov:Entity",
-      "dct:title": "dim_technician_role_scd2",
+      "dct:title": "dim_technician",
       "rowCount": 484
     },
     {
@@ -253,48 +273,71 @@
       "rowCount": 731
     },
     {
-      "@id": "db://airq/dwh_061/ft_name2",
-      "@type": "prov:Entity",
-      "dct:title": "ft_name2",
-      "rowCount": 0
-    },
-    {
       "@id": "db://airq/dwh_061/ft_sensordata",
       "@type": "prov:Entity",
       "dct:title": "ft_sensordata",
-      "rowCount": 0
+      "rowCount": 985573
     },
     {
-      "@id": "urn:airq:etl:group:061:2025-11-03T21:08:29Z",
+      "@id": "db://airq/dwh_061/ft_service_event",
+      "@type": "prov:Entity",
+      "dct:title": "ft_service_event",
+      "rowCount": 22720,
+      "dct:description": "Grain: One row per service event performed on a specific device by a technician on a given day.",
+      "measures": [
+        {
+          "name": "service_cost",
+          "agg": "SUM",
+          "fully_additive": true
+        },
+        {
+          "name": "service_duration_minutes",
+          "agg": "SUM",
+          "fully_additive": true
+        },
+        {
+          "name": "service_quality_score",
+          "agg": "AVG"
+        },
+        {
+          "name": "underqualified_flag",
+          "agg": "SUM"
+        }
+      ]
+    },
+    {
+      "@id": "urn:airq:etl:group:061:2025-11-04T16:52:17Z",
       "@type": "prov:Activity",
       "dct:description": "Assignment 1 ETL run for dwh_061",
-      "prov:startedAtTime": "2025-11-03T21:08:29Z",
-      "prov:endedAtTime": "2025-11-03T21:08:29Z",
+      "prov:startedAtTime": "2025-11-04T16:52:17Z",
+      "prov:endedAtTime": "2025-11-04T16:52:17Z",
       "prov:used": [
-        "oltp://tb_<oltp_table_3>",
-        "oltp://tb_<oltp_table_4>",
-        "oltp://tb_<oltp_table_c>",
         "file:csv/tb_alert.csv",
         "file:csv/tb_city.csv",
         "file:csv/tb_country.csv",
         "oltp://tb_emissionsource",
+        "file:csv/tb_employee.csv",
         "file:csv/tb_param.csv",
         "oltp://tb_param_source",
         "file:csv/tb_paramalert.csv",
         "file:csv/tb_readingevent.csv",
         "file:csv/tb_readingmode.csv",
+        "file:csv/tb_role.csv",
         "file:csv/tb_sensordevice.csv",
         "file:csv/tb_sensortype.csv",
+        "file:csv/tb_serviceevent.csv",
+        "file:csv/tb_servicetype.csv",
         "file:etl/a1_etl01_dim_timeday.sql",
         "file:etl/a1_etl02_dim_servicetype.sql",
         "file:etl/a1_etl03_dim_parameter.sql",
-        "file:etl/a1_etl04_dim_technician_role_scd2.sql",
-        "file:etl/a1_etl05_dim_sensortype.sql",
-        "file:etl/a1_etl06_dim_device.sql",
-        "file:etl/a1_etl07_dim_readingmode.sql",
-        "file:etl/a1_etl08_dim_alert.sql",
-        "file:etl/a1_etl10ft_SensorData.sql",
-        "file:etl/a1_etl9_dim_emissionsource.sql"
+        "file:etl/a1_etl04_dim_sensortype.sql",
+        "file:etl/a1_etl05_dim_device.sql",
+        "file:etl/a1_etl06_dim_readingmode.sql",
+        "file:etl/a1_etl07_dim_alert.sql",
+        "file:etl/a1_etl08_dim_emissionsource.sql",
+        "file:etl/a1_etl09_dim_technician.sql",
+        "file:etl/a1_etl10_ft_SensorData.sql",
+        "file:etl/a1_etl11_ft_service_event.sql"
       ],
       "prov:generated": [
         "db://airq/dwh_061/dim_alert",
@@ -304,10 +347,10 @@
         "db://airq/dwh_061/dim_readingmode",
         "db://airq/dwh_061/dim_sensortype",
         "db://airq/dwh_061/dim_servicetype",
-        "db://airq/dwh_061/dim_technician_role_scd2",
+        "db://airq/dwh_061/dim_technician",
         "db://airq/dwh_061/dim_timeday",
-        "db://airq/dwh_061/ft_name2",
-        "db://airq/dwh_061/ft_sensordata"
+        "db://airq/dwh_061/ft_sensordata",
+        "db://airq/dwh_061/ft_service_event"
       ],
       "prov:wasAssociatedWith": [
         "urn:person:A",
@@ -325,7 +368,7 @@
         {
           "@type": "prov:Association",
           "prov:agent": "urn:person:B",
-          "prov:hadRole": "owner:ft_<meaningfulname2>"
+          "prov:hadRole": "owner:ft_service_event"
         }
       ]
     },
@@ -353,6 +396,55 @@
       "@id": "urn:software:os",
       "@type": "prov:SoftwareAgent",
       "dct:title": "nt"
+    },
+    {
+      "@id": "db://airq/dwh_061/ft_service_event#derivation-tb_serviceevent",
+      "@type": "prov:Derivation",
+      "prov:generatedEntity": "db://airq/dwh_061/ft_service_event",
+      "prov:usedEntity": "file:csv/tb_serviceevent.csv",
+      "dct:description": "Student B’s fact loads service events and links them to devices, service-type metadata, and technician information derived from employee and role tables."
+    },
+    {
+      "@id": "db://airq/dwh_061/dim_servicetype#derivation-dim_servicetype-tb_servicetype",
+      "@type": "prov:Derivation",
+      "prov:generatedEntity": "db://airq/dwh_061/dim_servicetype",
+      "prov:usedEntity": "file:csv/tb_servicetype.csv",
+      "dct:description": "dim_servicetype ← tb_servicetype"
+    },
+    {
+      "@id": "db://airq/dwh_061/dim_device#derivation-dim_device-tb_sensordevice",
+      "@type": "prov:Derivation",
+      "prov:generatedEntity": "db://airq/dwh_061/dim_device",
+      "prov:usedEntity": "file:csv/tb_sensordevice.csv",
+      "dct:description": "dim_device ← tb_sensordevice"
+    },
+    {
+      "@id": "db://airq/dwh_061/dim_device#derivation-dim_device-tb_city",
+      "@type": "prov:Derivation",
+      "prov:generatedEntity": "db://airq/dwh_061/dim_device",
+      "prov:usedEntity": "file:csv/tb_city.csv",
+      "dct:description": "dim_device ← tb_city"
+    },
+    {
+      "@id": "db://airq/dwh_061/dim_device#derivation-dim_device-tb_country",
+      "@type": "prov:Derivation",
+      "prov:generatedEntity": "db://airq/dwh_061/dim_device",
+      "prov:usedEntity": "file:csv/tb_country.csv",
+      "dct:description": "dim_device ← tb_country"
+    },
+    {
+      "@id": "db://airq/dwh_061/dim_technician#derivation-dim_technician-tb_employee",
+      "@type": "prov:Derivation",
+      "prov:generatedEntity": "db://airq/dwh_061/dim_technician",
+      "prov:usedEntity": "file:csv/tb_employee.csv",
+      "dct:description": "dim_technician ← tb_employee"
+    },
+    {
+      "@id": "db://airq/dwh_061/dim_technician#derivation-dim_technician-tb_role",
+      "@type": "prov:Derivation",
+      "prov:generatedEntity": "db://airq/dwh_061/dim_technician",
+      "prov:usedEntity": "file:csv/tb_role.csv",
+      "dct:description": "dim_technician ← tb_role"
     }
   ]
 }
