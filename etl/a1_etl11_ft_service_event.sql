@@ -3,10 +3,8 @@
 -- =======================================
 SET search_path TO dwh_061, stg_061;
 
-Truncate target table
 TRUNCATE TABLE ft_service_event RESTART IDENTITY CASCADE;
 
-Insert transformed data
 INSERT INTO ft_service_event (
     day_id,
     sk_device,
