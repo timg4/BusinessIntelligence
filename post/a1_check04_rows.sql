@@ -1,21 +1,17 @@
 SET search_path TO dwh_061, stg_061;
 
-WITH dwh_st AS (
-  SELECT '061' AS group_num,
-         COUNT(*) AS dwh_count
-  FROM ft_SensorData
-), stg_st AS (
-  SELECT '061' AS group_num,
-         COUNT(*) AS stg_count
-  FROM tb_readingevent
+WITH counts AS (
+  SELECT 'SensorData' AS fact_name,
+         (SELECT COUNT(*) FROM ft_sensordata) AS dwh_count,
+         (SELECT COUNT(*) FROM tb_readingevent) AS stg_count
+  UNION ALL
+  SELECT 'ServiceEvent',
+         (SELECT COUNT(*) FROM ft_service_event),
+         (SELECT COUNT(*) FROM tb_serviceevent)
 )
-
 SELECT
-dwh_count,
-stg_count,
-CASE    
-    WHEN dwh_count <= stg_count THEN 'OK' 
-    ELSE 'fail' 
-END AS status_check
-FROM dwh_st d
-JOIN stg_st s ON d.group_num = s.group_num;
+  fact_name,
+  dwh_count,
+  stg_count,
+  CASE WHEN dwh_count <= stg_count THEN 'OK' ELSE 'fail' END AS status_check
+FROM counts;
