@@ -1,5 +1,5 @@
 -- Q33: PM4 — per Country, the Month with the highest Avg Data Quality in 2024 (2 decimals)
-SET search_path TO dwh2_xxx;
+SET search_path TO dwh2_061;
 
 WITH country_month AS (
   SELECT

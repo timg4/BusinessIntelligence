@@ -1,5 +1,5 @@
 -- -------------------------------
--- 1) Assignment 1: create/reset dwh2_xxx schema per group
+-- 1) Assignment 1: create/reset dwh2_061 schema per group
 -- -------------------------------
-DROP SCHEMA IF EXISTS dwh2_xxx CASCADE;
-CREATE SCHEMA dwh2_xxx AUTHORIZATION grp_xxx;
+DROP SCHEMA IF EXISTS dwh2_061 CASCADE;
+CREATE SCHEMA dwh2_061 AUTHORIZATION grp_061;

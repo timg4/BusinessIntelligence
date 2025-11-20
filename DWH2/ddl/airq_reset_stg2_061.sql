@@ -1,5 +1,5 @@
 -- -------------------------------
--- 1) Assignment 1: create/reset stg2_xxx schema per group
+-- 1) Assignment 1: create/reset stg2_061 schema per group
 -- -------------------------------
-DROP SCHEMA IF EXISTS stg2_xxx CASCADE;
-CREATE SCHEMA stg2_xxx AUTHORIZATION grp_xxx;
+DROP SCHEMA IF EXISTS stg2_061 CASCADE;
+CREATE SCHEMA stg2_061 AUTHORIZATION grp_061;

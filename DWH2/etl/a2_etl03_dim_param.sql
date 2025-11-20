@@ -7,7 +7,7 @@
 -- SELECT p.paramname, NULL, p.category, p.purpose, p.unit FROM stg_xxx.tb_param p;
 
 -- Make A2 dwh2_xxx, stg2_xxx schemas the default for this session
-SET search_path TO dwh2_xxx, stg2_xxx;
+SET search_path TO dwh2_061, stg2_061;
 
 -- =======================================
 -- Load dim_param
