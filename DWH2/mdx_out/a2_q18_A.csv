@@ -1,0 +1,17 @@
+region_name,country_name,city_name,year_num,quarter_num,Reading Events
+Central Europe,Austria,Vienna,2023,1,3374
+Central Europe,Austria,Vienna,2023,2,3222
+Central Europe,Austria,Vienna,2023,3,3325
+Central Europe,Austria,Vienna,2023,4,3289
+Central Europe,Germany,Berlin,2023,1,4873
+Central Europe,Germany,Berlin,2023,2,4800
+Central Europe,Germany,Berlin,2023,3,4868
+Central Europe,Germany,Berlin,2023,4,4893
+Eastern Europe,Russia,Moscow,2023,1,6581
+Eastern Europe,Russia,Moscow,2023,2,6744
+Eastern Europe,Russia,Moscow,2023,3,6801
+Eastern Europe,Russia,Moscow,2023,4,6803
+Western Europe,United Kingdom,London,2023,1,9293
+Western Europe,United Kingdom,London,2023,2,8955
+Western Europe,United Kingdom,London,2023,3,9237
+Western Europe,United Kingdom,London,2023,4,9077
