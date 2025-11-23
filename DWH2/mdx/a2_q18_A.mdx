@@ -1,0 +1,22 @@
+-- Q18: For 2023, show Reading Events by Quarter for Vienna, Berlin, Moscow, and London (all
+-- parameters). Return the four cities on rows and the four quarters of 2023 (Q1–Q4) on columns.
+
+SELECT
+    {
+        [Measures].[Reading Events]
+    } ON COLUMNS,
+
+    CROSSJOIN(
+        {
+            [dim_city].[Geo].[city_name].&[Vienna],
+            [dim_city].[Geo].[city_name].&[Berlin],
+            [dim_city].[Geo].[city_name].&[Moscow],
+            [dim_city].[Geo].[city_name].&[London]
+        },
+        DESCENDANTS(
+            [dim_timemonth].[Time].[year_num].&[2023],
+            [dim_timemonth].[Time].[quarter_num]
+        )
+    ) ON ROWS
+
+FROM [AirQ Cube]

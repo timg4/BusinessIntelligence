@@ -1,0 +1,15 @@
+-- Q03. For PM10 in 2024, show the total Exceed Days (any) by City. Return one row per city and a
+-- single column with the total number of exceedance days for that year
+
+SELECT
+    { [Measures].[Exceed Days (any)] } ON COLUMNS,
+
+    NON EMPTY
+    [dim_city].[Geo].[city_name].Members ON ROWS
+
+FROM [AirQ Cube]
+
+WHERE (
+    [dim_param].[Param].[param_name].&[PM10],
+    [dim_timemonth].[Time].[year_num].&[2024]
+)

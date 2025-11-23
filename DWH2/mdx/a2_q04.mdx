@@ -1,0 +1,32 @@
+-- Q04. For 2024, show total Data Volume (KB) by Region × Quarter. Return Regions on rows and the
+-- four quarters of 2024 on columns.
+SELECT
+  NON EMPTY Hierarchize(
+    Descendants(
+      {
+        [dim_city].[Geo].[ALL].[AllMember]
+      },
+      1,
+      SELF_AND_BEFORE
+    )
+  ) DIMENSION PROPERTIES CHILDREN_CARDINALITY ON ROWS,
+  NON EMPTY Crossjoin(
+    Hierarchize(
+      Descendants(
+        {
+          [dim_timemonth].[Time].[ALL].[AllMember]
+        },
+        2,
+        SELF_AND_BEFORE
+      )
+    ),
+    {
+      [Measures].[Data Volume (KB)]
+    }
+  ) DIMENSION PROPERTIES CHILDREN_CARDINALITY ON COLUMNS
+  FROM (
+    SELECT
+    [dim_timemonth].[Time].[ALL].[AllMember].[2024] ON COLUMNS
+    FROM [AirQ Cube]
+  )
+  CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS
