@@ -31,7 +31,7 @@ SET search_path TO dwh2_061, stg2_061;
 -- Clear fact table
 TRUNCATE TABLE ft_param_city_month RESTART IDENTITY CASCADE;
 
-WITH ev AS (
+WITH events AS (
     SELECT r.readat,
            r.recordedvalue,
            r.datavolumekb,
@@ -43,14 +43,14 @@ WITH ev AS (
     JOIN tb_sensordevice sd ON sd.id = r.sensordevid
 ),
 
-lkp AS (
+grain AS (
     SELECT e.*,
            dc.city_key,
            dp.param_key,
            tm.month_key,
            tm.mfirst_day,
            tm.mlast_day
-    FROM ev e
+    FROM events e
     JOIN tb_city c    ON c.id = e.cityid
     JOIN dim_city dc  ON dc.city_name = c.cityname
     JOIN tb_param p   ON p.id = e.paramid
@@ -59,7 +59,7 @@ lkp AS (
          ON e.readat >= tm.mfirst_day AND e.readat <= tm.mlast_day
 ),
 
-lvl AS (
+alarmlvl AS (
     SELECT pa.paramid,
            MAX(CASE WHEN a.colour='Yellow'  THEN pa.threshold END) AS y,
            MAX(CASE WHEN a.colour='Orange'  THEN pa.threshold END) AS o,
@@ -70,57 +70,57 @@ lvl AS (
     GROUP BY pa.paramid
 ),
 
-ev2 AS (
-    SELECT l.*,
+alertclr AS (
+    SELECT g.*,
            CASE
-               WHEN l.recordedvalue >= lvl.c THEN 4
-               WHEN l.recordedvalue >= lvl.r THEN 3
-               WHEN l.recordedvalue >= lvl.o THEN 2
-               WHEN l.recordedvalue >= lvl.y THEN 1
+               WHEN g.recordedvalue >= al.c THEN 4
+               WHEN g.recordedvalue >= al.r THEN 3
+               WHEN g.recordedvalue >= al.o THEN 2
+               WHEN g.recordedvalue >= al.y THEN 1
                ELSE 0
            END AS rk
-    FROM lkp l
-    LEFT JOIN lvl ON l.paramid = lvl.paramid
+    FROM grain g
+    LEFT JOIN alarmlvl al ON g.paramid = al.paramid
 ),
 
-dalert AS (
+maxalert AS (
     SELECT month_key, city_key, param_key, readat,
            MAX(rk) AS max_rk
-    FROM ev2
+    FROM alertclr
     GROUP BY month_key, city_key, param_key, readat
 ),
 
-mcore AS (
+monthlycore AS (
     SELECT month_key, city_key, param_key,
-           COUNT(*)                             AS cnt,
-           COUNT(DISTINCT sensordevid)          AS devs,
-           AVG(recordedvalue)                   AS avg_val,
+           COUNT(*) AS cnt,
+           COUNT(DISTINCT sensordevid) AS devs,
+           AVG(recordedvalue) AS avg_val,
            PERCENTILE_CONT(0.95)
              WITHIN GROUP (ORDER BY recordedvalue) AS p95,
-           SUM(datavolumekb)                    AS kb_sum,
-           AVG(dataquality)                     AS q_avg
-    FROM ev2
+           SUM(datavolumekb) AS kb_sum,
+           AVG(dataquality) AS q_avg
+    FROM alertclr
     GROUP BY month_key, city_key, param_key
 ),
 
-malert AS (
+monthalert AS (
     SELECT month_key, city_key, param_key,
            COUNT(*) FILTER (WHERE max_rk > 0) AS ex_days,
-           MAX(max_rk)                        AS peak
-    FROM dalert
+           MAX(max_rk) AS peak
+    FROM maxalert
     GROUP BY month_key, city_key, param_key
 ),
 
-mlen AS (
+monthlen AS (
     SELECT month_key,
            (mlast_day - mfirst_day + 1) AS days
     FROM dim_timemonth
 ),
 
-obs AS (
+observations AS (
     SELECT month_key, city_key, param_key,
            COUNT(DISTINCT readat) AS d_obs
-    FROM dalert
+    FROM maxalert
     GROUP BY month_key, city_key, param_key
 ),
 
@@ -143,16 +143,16 @@ final AS (
                ELSE 1000
            END AS alertpeak_key,
            (ml.days - COALESCE(o.d_obs,0)) AS miss_days
-    FROM mcore mc
-    LEFT JOIN malert ma  
+    FROM  monthlycore mc
+    LEFT JOIN monthalert ma  
            ON ma.month_key = mc.month_key
           AND ma.city_key  = mc.city_key
           AND ma.param_key = mc.param_key
-    LEFT JOIN obs o
+    LEFT JOIN observations o
            ON o.month_key = mc.month_key
           AND o.city_key  = mc.city_key
           AND o.param_key = mc.param_key
-    JOIN mlen ml ON ml.month_key = mc.month_key
+    JOIN monthlen ml ON ml.month_key = mc.month_key
 )
 
 INSERT INTO ft_param_city_month (
@@ -169,5 +169,5 @@ SELECT
     cnt, devs, avg_val, p95,
     ex_days, kb_sum,
     q_avg, miss_days
-FROM fin
+FROM final
 ORDER BY month_key, city_key, param_key;
