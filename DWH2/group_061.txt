@@ -1,2 +1,2 @@
-Student A:
-Student B:
+Student A: Tim Gress
+Student B: Stefan Merdian

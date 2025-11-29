@@ -1,0 +1,20 @@
+SELECT
+{ [Measures].[Avg Data Quality] } ON COLUMNS,
+
+NON EMPTY
+Order(
+TopCount(
+[dim_city].[Geo].Levels(2).Members,
+10,
+[Measures].[Avg Data Quality]
+),
+[Measures].[Avg Data Quality],
+DESC
+) ON ROWS
+
+FROM (
+SELECT
+[dim_timemonth].[Time].[ALL].[AllMember].[2024] ON COLUMNS
+FROM [AirQ Cube]
+)
+CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS

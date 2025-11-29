@@ -1,0 +1,28 @@
+-- Q12 - For 2024, show Exceed Days (any) by City × monthly peak Alert Level (None, Yellow, Orange,
+-- Red, Crimson) for Eastern Europe.
+-- Return Cities in Eastern Europe on rows and the five Alert Levels on columns.
+
+SELECT
+{
+[dim_alertpeak].[Alert].[alert_level_name].[None],
+[dim_alertpeak].[Alert].[alert_level_name].[Yellow],
+[dim_alertpeak].[Alert].[alert_level_name].[Orange],
+[dim_alertpeak].[Alert].[alert_level_name].[Red],
+[dim_alertpeak].[Alert].[alert_level_name].[Crimson]
+}
+
+- { [Measures].[Exceed Days (any)] } ON COLUMNS,
+
+NON EMPTY
+Descendants(
+{ [dim_city].[Geo].[region_name].[Eastern Europe] },
+3,
+SELF
+) ON ROWS
+
+FROM (
+SELECT
+[dim_timemonth].[Time].[ALL].[AllMember].[2024] ON COLUMNS
+FROM [AirQ Cube]
+)
+CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS

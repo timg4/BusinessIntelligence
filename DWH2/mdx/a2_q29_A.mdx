@@ -1,0 +1,20 @@
+-- Q29 - Show Data Volume (KB) by Country in Eastern Europe for 2023 and 2024.
+-- Return Eastern European countries on rows and two columns—2023 and 2024
+-- totals of Data Volume (KB).
+
+SELECT
+NON EMPTY
+{
+( [dim_timemonth].[Time].[ALL].[AllMember].[2023], [Measures].[Data Volume (KB)] ),
+( [dim_timemonth].[Time].[ALL].[AllMember].[2024], [Measures].[Data Volume (KB)] )
+} ON COLUMNS,
+
+NON EMPTY
+Descendants(
+[dim_city].[Geo].[region_name].[Eastern Europe],
+2,
+SELF
+) ON ROWS
+
+FROM [AirQ Cube]
+CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS

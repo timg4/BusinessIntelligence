@@ -1,0 +1,16 @@
+SELECT
+{ [Measures].[Missing Days] } ON COLUMNS,
+
+NON EMPTY
+TopCount(
+[dim_city].[Geo].Levels(3).Members,
+10,
+[Measures].[Missing Days]
+) ON ROWS
+
+FROM (
+SELECT
+[dim_timemonth].[Time].[ALL].[AllMember].[2024] ON COLUMNS
+FROM [AirQ Cube]
+)
+CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS

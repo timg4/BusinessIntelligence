@@ -1,0 +1,46 @@
+alert_level_name,region_name,country_name,city_name
+None,Eastern Europe,Belarus,Minsk
+Yellow,Eastern Europe,Belarus,Minsk
+Orange,Eastern Europe,Belarus,Minsk
+Red,Eastern Europe,Belarus,Minsk
+Crimson,Eastern Europe,Belarus,Minsk
+None,Eastern Europe,Greece,Athens
+Yellow,Eastern Europe,Greece,Athens
+Orange,Eastern Europe,Greece,Athens
+Red,Eastern Europe,Greece,Athens
+Crimson,Eastern Europe,Greece,Athens
+None,Eastern Europe,Russia,Kazan
+Yellow,Eastern Europe,Russia,Kazan
+Orange,Eastern Europe,Russia,Kazan
+Red,Eastern Europe,Russia,Kazan
+Crimson,Eastern Europe,Russia,Kazan
+None,Eastern Europe,Russia,Moscow
+Yellow,Eastern Europe,Russia,Moscow
+Orange,Eastern Europe,Russia,Moscow
+Red,Eastern Europe,Russia,Moscow
+Crimson,Eastern Europe,Russia,Moscow
+None,Eastern Europe,Russia,St. Petersburg
+Yellow,Eastern Europe,Russia,St. Petersburg
+Orange,Eastern Europe,Russia,St. Petersburg
+Red,Eastern Europe,Russia,St. Petersburg
+Crimson,Eastern Europe,Russia,St. Petersburg
+None,Eastern Europe,Russia,Ufa
+Yellow,Eastern Europe,Russia,Ufa
+Orange,Eastern Europe,Russia,Ufa
+Red,Eastern Europe,Russia,Ufa
+Crimson,Eastern Europe,Russia,Ufa
+None,Eastern Europe,Serbia,Belgrade
+Yellow,Eastern Europe,Serbia,Belgrade
+Orange,Eastern Europe,Serbia,Belgrade
+Red,Eastern Europe,Serbia,Belgrade
+Crimson,Eastern Europe,Serbia,Belgrade
+None,Eastern Europe,Turkey,Ankara
+Yellow,Eastern Europe,Turkey,Ankara
+Orange,Eastern Europe,Turkey,Ankara
+Red,Eastern Europe,Turkey,Ankara
+Crimson,Eastern Europe,Turkey,Ankara
+None,Eastern Europe,Turkey,Istanbul
+Yellow,Eastern Europe,Turkey,Istanbul
+Orange,Eastern Europe,Turkey,Istanbul
+Red,Eastern Europe,Turkey,Istanbul
+Crimson,Eastern Europe,Turkey,Istanbul
