@@ -3,20 +3,20 @@
 
 SELECT
     {
-        [Measures].[Reading Events]
+        [dim_timemonth].[Time].[quarter_num].&[1],
+        [dim_timemonth].[Time].[quarter_num].&[2],
+        [dim_timemonth].[Time].[quarter_num].&[3],
+        [dim_timemonth].[Time].[quarter_num].&[4]
     } ON COLUMNS,
 
-    CROSSJOIN(
-        {
-            [dim_city].[Geo].[city_name].&[Vienna],
-            [dim_city].[Geo].[city_name].&[Berlin],
-            [dim_city].[Geo].[city_name].&[Moscow],
-            [dim_city].[Geo].[city_name].&[London]
-        },
-        DESCENDANTS(
-            [dim_timemonth].[Time].[year_num].&[2023],
-            [dim_timemonth].[Time].[quarter_num]
-        )
-    ) ON ROWS
+    {
+        [dim_city].[Geo].[city_name].&[Vienna],
+        [dim_city].[Geo].[city_name].&[Berlin],
+        [dim_city].[Geo].[city_name].&[Moscow],
+        [dim_city].[Geo].[city_name].&[London]
+    } ON ROWS
 
 FROM [AirQ Cube]
+
+WHERE
+    ([Measures].[Reading Events])

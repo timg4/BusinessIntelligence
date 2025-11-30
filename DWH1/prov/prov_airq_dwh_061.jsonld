@@ -216,7 +216,7 @@
       ],
       "dct:title": "a1_etl11_ft_service_event.sql",
       "dct:format": "text/sql",
-      "contentHash": "dfda210839b3cec2600be5a072dd6b0e11e198f770b5ab0f02f0c92ccb057951"
+      "contentHash": "8c1b1ca3b1a97a66abee5e02f0c5ebcf6fb658e69931682ef5bd8b24d6095aef"
     },
     {
       "@id": "db://airq/dwh_061/dim_alert",
@@ -306,11 +306,11 @@
       ]
     },
     {
-      "@id": "urn:airq:etl:group:061:2025-11-04T16:52:17Z",
+      "@id": "urn:airq:etl:group:061:2025-11-30T11:18:21Z",
       "@type": "prov:Activity",
       "dct:description": "Assignment 1 ETL run for dwh_061",
-      "prov:startedAtTime": "2025-11-04T16:52:17Z",
-      "prov:endedAtTime": "2025-11-04T16:52:17Z",
+      "prov:startedAtTime": "2025-11-30T11:18:21Z",
+      "prov:endedAtTime": "2025-11-30T11:18:21Z",
       "prov:used": [
         "file:csv/tb_alert.csv",
         "file:csv/tb_city.csv",

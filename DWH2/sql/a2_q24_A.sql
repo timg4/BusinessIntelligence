@@ -4,7 +4,7 @@
 SET search_path TO dwh2_061;
 
 SELECT dc.country_name,
-AVG(f.recordedvalue_p95) AS p95_recorded_value
+f.recordedvalue_p95 AS p95_recorded_value
 FROM dwh2_061.ft_param_city_month f
 JOIN dwh2_061.dim_city dc ON f.city_key = dc.city_key
 JOIN dwh2_061.dim_param dp ON f.param_key = dp.param_key

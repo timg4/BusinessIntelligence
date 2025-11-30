@@ -1,4 +1,5 @@
--- Q3:For PM10 in 2024, show the total Exceed Days (any) by City. Return one row per city and a
+--For PM10 in 2024, show the total Exceed Days (any) by City. Return one row per city and a
+--single column with the total number of exceedance days for that yea
 
 SET search_path TO dwh2_061;
 
