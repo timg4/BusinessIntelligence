@@ -4,3 +4,4 @@ matplotlib
 starvers @ git+https://github.com/AllStarsAT/starvers.git
 plotly
 requests
+scikit-learn
